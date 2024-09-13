@@ -10,6 +10,7 @@ import { useState } from "react";
 import { UserFormValidation } from "@/lib/validation";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.action";
+import { Models } from "node-appwrite";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -42,8 +43,8 @@ const PatientForm = () => {
         email,
         phone,
       };
-      const user = await createUser(userData)
-      if(user) router.push(`/patients/${user.id}/register`)
+      const user: Models.User<Models.Preferences> = await createUser(userData)
+      if(user) router.push(`/patients/${user.$id}/register`)
     } catch (error) {}
   }
 
@@ -57,7 +58,7 @@ const PatientForm = () => {
 
         <CustomFormField
           name="name"
-          label="Full name"
+          label="Full Name"
           placeholder="John Doe"
           iconSrc="/assets/icons/user.svg"
           iconAlt="user"
@@ -77,7 +78,7 @@ const PatientForm = () => {
 
         <CustomFormField
           name="phone"
-          label="Phone number"
+          label="Phone Number"
           placeholder="(+62) 898-3213-8933"
           fieldType={FormFieldType.PHONE_INPUT}
           control={form.control}
