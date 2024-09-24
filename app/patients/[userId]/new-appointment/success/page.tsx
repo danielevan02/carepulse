@@ -44,6 +44,7 @@ const Success = async ({params: {userId}, searchParams}: SearchParamProps) => {
 								alt="calendar"
 							/>
 							<p>{formatDateTime(appointment.schedule).dateTime}</p>
+              <p>{}</p>
 						</div>
         </section>
 				<Button variant="outline" className="shad-primary-btn" asChild>
