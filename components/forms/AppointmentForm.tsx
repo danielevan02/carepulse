@@ -55,7 +55,7 @@ const AppointmentForm = ({
       primaryPhysician: appointment && appointment.primaryPhysician,
       schedule: appointment ? new Date(appointment.schedule) : new Date(Date.now()),
       reason: appointment ? appointment.reason : "",
-      note: appointment ? appointment.note : "",
+      note: appointment?.note || "",
       cancellationReason: appointment?.cancellationReason || "",
     },
   });
@@ -101,7 +101,8 @@ const AppointmentForm = ({
             primaryPhysician: values?.primaryPhysician,
             schedule: new Date(values?.schedule),
             status: status as Status,
-            cancellationReason: values?.cancellationReason,
+            reason: values?.reason,
+            note: values?.note
           },
           type,
         };
@@ -109,8 +110,8 @@ const AppointmentForm = ({
         const updatedAppointment = await updateAppointment(appointmentToUpdate);
 
         if (updatedAppointment) {
-          setOpen && setOpen(false);
           form.reset();
+          setOpen && setOpen(false);
         }
       }
     } catch (error) {
@@ -174,7 +175,7 @@ const AppointmentForm = ({
               <CustomFormField
                 fieldType={FormFieldType.TEXTAREA}
                 control={form.control}
-                name="notes"
+                name="note"
                 label="Notes"
                 placeholder="Enter notes"
               />

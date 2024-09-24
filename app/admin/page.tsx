@@ -2,12 +2,14 @@ import {DataTable} from '@/components/table/DataTable'
 import {columns} from '@/components/table/columns'
 import StatCard from '@/components/ui/StatCard'
 import { getRecentAppointmentList } from '@/lib/actions/appointment.action'
+import { revalidatePath } from 'next/cache'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 const Admin = async () => {
 	const appointments = await getRecentAppointmentList()
+	revalidatePath('/admin')
   return (
     <div className='mx-auto flex max-w-7xl flex-col space-y-14'>
       <header className='admin-header'>
