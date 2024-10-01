@@ -4,9 +4,12 @@ import { getPatient } from "@/lib/actions/patient.action";
 import Image from "next/image";
 import { Models } from "node-appwrite";
 import React from "react";
+import * as Sentry from '@sentry/nextjs'
 
 const NewAppointment = async ({params: {userId}}: SearchParamProps) => {
 	const patient: Models.Document = await getPatient(userId)
+
+  Sentry.metrics.set("user_view_new-appointment", patient.name)
 
   return (
     <div className="flex h-screen max-h-screen">
